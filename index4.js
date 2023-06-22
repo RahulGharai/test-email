@@ -25,8 +25,8 @@ app.post('/email', (req, res) => {
     let mailOptions = {
         from: 'gharairahul05@gmail.com',
         to: req.body.email,
-        subject:'Welcome to Feedsense',
-        text:`you are Sucessfully logged in and password is $(retval)`
+      subject: req.body.subject,
+      text: req.body.text,
     };
     transporter.sendMail(mailOptions,function(error,info){
         if(error){

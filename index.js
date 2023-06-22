@@ -9,39 +9,16 @@ const parser = require("body-parser");
 
 app.use(parser.json());
 
-// async function sendEmail() {
-//   try {
-//     const transporter = nodemailer.createTransport(smtpConfig);
 
-//     const mailOptions = {
-//       from: 'aryasantu41@gmail.com',
-//       to: 'rahul@thomaskelly.com',
-//       subject: 'Hello from Node.js',
-//       text: 'This is the content of the email get out man .',
-//     };
-
-//     const info = await transporter.sendMail(mailOptions);
-//     console.log('Email sent:', info.messageId);
-//   } catch (error) {
-//     console.error('Error sending email:', error);
-//   }
-// }
-
-// sendEmail();
-
-app.post('/email', (req, res) => {
-  // const { body } = req;
-  // const email = req.body.email
-  // console.log("email",email)
-
+app.post('/elastic-email', (req, res) => {
   try {
     const transporter = nodemailer.createTransport(smtpConfig);
 
     const mailOptions = {
       from: 'aryasantu41@gmail.com',
       to: req.body.email,
-      subject: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-      text: 'NNNNNNNNNNN HHHHHHHHHHHHH YYYYYYYYYYYYY EEEEEEEEEEEEE GGGGGGGGGGG',
+      subject: req.body.subject,
+      text: req.body.text,
     };
 
     const info =  transporter.sendMail(mailOptions);
@@ -52,11 +29,43 @@ app.post('/email', (req, res) => {
 });
 
 
-app.get('/get', (req, res) => {
-  const data = { message: 'This is the response data' };
-  res.json(data);
-  console.log("resdata get",res.json(data));
+
+app.post('/google-email', (req, res) => {
+  let transporter = nodemailer.createTransport({
+      host: 'smtp.gmail.com',
+      port: 587,
+      secure:false,
+      logger: true,
+      debug: true,
+      auth:{
+          // user:'gharairahul05@gmail.com',
+          // pass:'telrwctpsapasdfv',
+          user:'aryasantu41@gmail.com',
+          pass:'stskfzmiqkjxiiin',
+      }
+  });
+  let mailOptions = {
+      from: 'gharairahul05@gmail.com',
+      to: req.body.email,
+    subject: req.body.subject,
+    text: req.body.text,
+  };
+  transporter.sendMail(mailOptions,function(error,info){
+      if(error){
+          console.log("error",error);
+          
+      }
+      else{
+          console.log('Email sent: '+ info.response);
+          
+      }
+     
+  });
+
+
 });
+
+
 
 
 
