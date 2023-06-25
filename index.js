@@ -9,7 +9,11 @@ const cors = require("cors");
 // const apikey = "E3EE329B2279D6D8F36DD9A3FAB75A2EE41E52A77A7465A88E9565B001F170951C1CF0328373273F09D3FD886AA6849B"
 
 app.use(parser.json());
-app.use(cors({ origin: true }));
+// app.use(cors({ origin: true }));
+app.use(cors({
+  origin: 'http://localhost:8080',
+  optionsSuccessStatus: 200, // Some legacy browsers (e.g., IE 11) choke on 204
+}));
 
 
 app.post('/elastic-email', (req, res) => {
