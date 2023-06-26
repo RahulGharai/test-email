@@ -82,6 +82,46 @@ app.post('/google-email', (req, res) => {
 
 });
 
+app.post('/brevo-email', (req, res) => {
+  let transporter = nodemailer.createTransport({
+      host: 'smtp-relay.sendinblue.com',
+      port: 587,
+      secure:false,
+      logger: true,
+      debug: true,
+      auth:{
+          // user:'gharairahul05@gmail.com',
+          // pass:'telrwctpsapasdfv',
+          user:'aryasantu41@gmail.com',
+          pass:'0FBskta5PRTV7GrS',
+      }
+  });
+  let mailOptions = {
+      from: 'aryasantu41@gmail.com',
+      to: req.body.email,
+    subject: req.body.subject,
+    text: req.body.text,
+  };
+  transporter.sendMail(mailOptions,function(error,info){
+      if(error){
+          console.log("error",error);
+          
+      }
+      else{
+        res.status(200).send({
+          status: true,
+          data: info.response,
+          msg: "email sent successfylly"
+        });
+          console.log('Email sent: '+ info.response);
+          
+      }
+     
+  });
+
+
+});
+
 
 
 
