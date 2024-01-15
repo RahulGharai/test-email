@@ -241,13 +241,20 @@ app.use('/getstockgraph', async (req, res) => {
   }
 });
 
+
 app.use('/getmatchlist', async (req, res) => {
-  const url = `https://www.cricbuzz.com/api/html/homepage-scag`;
+  const url = 'https://www.cricbuzz.com/api/html/homepage-scag';
 
   try {
     const response = await fetch(url);
-    const data = await response.json();
-    res.json(data);
+    
+    // Check if the response status is OK (200)
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const data = await response.text();  // Use text() instead of json()
+    res.send(data);
   } catch (error) {
     console.error('Error fetching data:', error);
     res.status(500).send('Internal Server Error');
