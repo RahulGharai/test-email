@@ -122,6 +122,20 @@ app.post('/brevo-email', (req, res) => {
 
 });
 
+app.use('/stock', async (req, res) => {
+
+  const url = `https://groww.in`;
+
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    res.json(data);
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
 
 
 
