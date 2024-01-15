@@ -124,7 +124,7 @@ app.post('/brevo-email', (req, res) => {
 
 app.use('/stock', async (req, res) => {
 
-  const url = `https://groww.in`;
+  const url = `https://groww.in/v1/api/groww_news/v1/stocks_news/news?page=0&size=5`;
 
   try {
     const response = await fetch(url);
