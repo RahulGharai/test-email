@@ -164,6 +164,33 @@ app.use('/getstockbytoploosers', async (req, res) => {
   }
 });
 
+app.use('/getstocknews', async (req, res) => {
+  const { q } = req.query;
+  const url = `https://groww.in/v1/api/groww_news/v1/stocks_news/news?page=0&size=${q}`;
+
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    res.json(data);
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+app.use('/getstocktoploosegain', async (req, res) => {
+  const { q } = req.query;
+  const url = `https://groww.in/v1/api/stocks_data/v2/explore/list/top?discoveryFilterTypes=TOP_GAINERS%2CTOP_LOSERS&page=0&size=5`;
+
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    res.json(data);
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
 
 // app.use('/stock', async (req, res) => {
 
