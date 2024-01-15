@@ -241,6 +241,35 @@ app.use('/getstockgraph', async (req, res) => {
   }
 });
 
+app.use('/getmatchlist', async (req, res) => {
+  const url = `https://www.cricbuzz.com/api/html/homepage-scag`;
+
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    res.json(data);
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+app.use('/getmatchdetails', async (req, res) => {
+  const { q } = req.query;
+  const url = `https://www.cricbuzz.com/api/cricket-match/commentary/${q}`;
+
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    res.json(data);
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+
+
 
 
 
