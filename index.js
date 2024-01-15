@@ -137,9 +137,9 @@ app.use('/getstockbysearch', async (req, res) => {
 });
 
 app.use('/getstockbytopgainer', async (req, res) => {
-  const { q } = req.query.q;
-  const {stockName}=req.query.stockName
-  const url = `https://groww.in/v1/api/stocks_data/explore/v2/indices/${stockName}/market_trends?discovery_filter_types=TOP_GAINERS&size=${q}`;
+  const  size  = req.query.size;
+  const stockName=req.query.stockName
+  const url = `https://groww.in/v1/api/stocks_data/explore/v2/indices/${stockName}/market_trends?discovery_filter_types=TOP_GAINERS&size=${size}`;
 
   try {
     const response = await fetch(url);
@@ -152,9 +152,9 @@ app.use('/getstockbytopgainer', async (req, res) => {
 });
 
 app.use('/getstockbytoploosers', async (req, res) => {
-  const { q } = req.query.q;
-  const {stockName}=req.query.stockName
-  const url = `https://groww.in/v1/api/stocks_data/explore/v2/indices/${stockName}/market_trends?discovery_filter_types=TOP_LOSERS&size=${q}`;
+  const  size  = req.query.size;
+  const stockName=req.query.stockName
+  const url = `https://groww.in/v1/api/stocks_data/explore/v2/indices/${stockName}/market_trends?discovery_filter_types=TOP_LOSERS&size=${size}`;
 
   try {
     const response = await fetch(url);
