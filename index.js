@@ -166,6 +166,22 @@ app.use('/getstockbytoploosers', async (req, res) => {
   }
 });
 
+app.use('/getstockbyfilter', async (req, res) => {
+  const  size  = req.query.size;
+  const stockName=req.query.stockName
+  const filterBy=req.query.filterBy
+  const url = `https://groww.in/v1/api/stocks_data/explore/v2/indices/${stockName}/market_trends?discovery_filter_types=${filterBy}&size=${size}`;
+
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    res.json(data);
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
 app.use('/getstocknews', async (req, res) => {
   const { q } = req.query;
   const url = `https://groww.in/v1/api/groww_news/v1/stocks_news/news?page=0&size=${q}`;
@@ -179,6 +195,70 @@ app.use('/getstocknews', async (req, res) => {
     res.status(500).send('Internal Server Error');
   }
 });
+
+
+
+
+app.use('/getstockid', async (req, res) => {
+  const { q } = req.query;
+  const url = `https://groww.in/v1/api/stocks_data/v1/company/search_id/${q}?page=0&size=10`;
+
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    res.json(data);
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+app.use('/getstockcode', async (req, res) => {
+  const { q } = req.query;
+  const url = `https://groww.in/v1/api/stocks_data/v1/accord_points/exchange/NSE/segment/CASH/latest_prices_ohlc/${q}`;
+
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    res.json(data);
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+app.use('/getstockgraph', async (req, res) => {
+  const { q } = req.query;
+  const url = `https://groww.in/v1/api/charting_service/v2/chart/delayed/exchange/NSE/segment/CASH/${q}/daily?intervalInMinutes=1&minimal=true`;
+
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    res.json(data);
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 app.use('/getstocktoploosegain', async (req, res) => {
   const { q } = req.query;
   const url = `https://groww.in/v1/api/stocks_data/v2/explore/list/top?discoveryFilterTypes=TOP_GAINERS%2CTOP_LOSERS&page=0&size=5`;
