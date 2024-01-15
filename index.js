@@ -122,6 +122,21 @@ app.post('/brevo-email', (req, res) => {
 
 });
 
+app.use('/getstockbysearch', async (req, res) => {
+  const { q } = req.query;
+  const url = `https://groww.in/v1/api/search/v1/entity?app=false&page=0&q=${q}&size=6`;
+
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    res.json(data);
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+
 app.use('/stock', async (req, res) => {
 
   const url = `https://groww.in/v1/api/groww_news/v1/stocks_news/news?page=0&size=5`;
