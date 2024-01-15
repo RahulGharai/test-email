@@ -136,10 +136,9 @@ app.use('/getstockbysearch', async (req, res) => {
   }
 });
 
-
-app.use('/stock', async (req, res) => {
-
-  const url = `https://groww.in/v1/api/groww_news/v1/stocks_news/news?page=0&size=5`;
+app.use('/getstockbytopgainer', async (req, res) => {
+  const { q } = req.query;
+  const url = `https://groww.in/v1/api/stocks_data/explore/v2/indices/GIDXNIFTY100/market_trends?discovery_filter_types=TOP_GAINERS&size=${q}`;
 
   try {
     const response = await fetch(url);
@@ -150,6 +149,35 @@ app.use('/stock', async (req, res) => {
     res.status(500).send('Internal Server Error');
   }
 });
+
+app.use('/getstockbytoploosers', async (req, res) => {
+  const { q } = req.query;
+  const url = `https://groww.in/v1/api/stocks_data/explore/v2/indices/GIDXNIFTY100/market_trends?discovery_filter_types=TOP_LOSERS&size=${q}`;
+
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    res.json(data);
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+
+// app.use('/stock', async (req, res) => {
+
+//   const url = `https://groww.in/v1/api/groww_news/v1/stocks_news/news?page=0&size=5`;
+
+//   try {
+//     const response = await fetch(url);
+//     const data = await response.json();
+//     res.json(data);
+//   } catch (error) {
+//     console.error('Error fetching data:', error);
+//     res.status(500).send('Internal Server Error');
+//   }
+// });
 
 
 
