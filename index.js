@@ -306,8 +306,10 @@ app.use('/getstocktoploosegain', async (req, res) => {
 });
 
 app.use('/stock-event', async (req, res) => {
-  const size = req.query;
+  const size = req.query.size;
+  console.log("helppp",size)
   const url = `https://groww.in/v1/api/stocks_data/v1/company/search_id/${size}/corporate_actions`;
+  console.log("urlurlurlurlurlurlurl",url)
   try {
     const response = await fetch(url);
     const data = await response.json();
@@ -319,7 +321,7 @@ app.use('/stock-event', async (req, res) => {
 });
 
 app.use('/stock-event-news', async (req, res) => {
-  const size = req.query;
+  const size = req.query.size;
   const url = `https://groww.in/v1/api/stocks_company_master/v1/company_news/groww_contract_id/${size}`;
   try {
     const response = await fetch(url);
