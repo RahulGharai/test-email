@@ -320,9 +320,9 @@ app.use('/stock-event', async (req, res) => {
   }
 });
 
-app.use('/stock-event-news', async (req, res) => {
+app.use('/  ', async (req, res) => {
   const size = req.query.size;
-  const url = `https://groww.in/v1/api/stocks_company_master/v1/company_news/groww_contract_id/${size}`;
+  const url = `https://groww.in/v1/api/stocks_company_master/v1/company_news/groww_contract_id/${size}?size=50`;
   try {
     const response = await fetch(url);
     const data = await response.json();
