@@ -291,28 +291,36 @@ app.use('/getjobtitle', async (req, res) => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 app.use('/getstocktoploosegain', async (req, res) => {
   const { q } = req.query;
   const url = `https://groww.in/v1/api/stocks_data/v2/explore/list/top?discoveryFilterTypes=TOP_GAINERS%2CTOP_LOSERS&page=0&size=5`;
 
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    res.json(data);
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+app.use('/stock-event', async (req, res) => {
+  const size = req.query;
+  const url = `https://groww.in/v1/api/stocks_data/v1/company/search_id/${size}/corporate_actions`;
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    res.json(data);
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+app.use('/stock-event-news', async (req, res) => {
+  const size = req.query;
+  const url = `https://groww.in/v1/api/stocks_company_master/v1/company_news/groww_contract_id/${size}`;
   try {
     const response = await fetch(url);
     const data = await response.json();
