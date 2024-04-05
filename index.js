@@ -275,6 +275,62 @@ app.use('/getmatchdetails', async (req, res) => {
   }
 });
 
+app.use('/getmatchscorecard', async (req, res) => {
+  const { q } = req.query;
+  const url = `https://www.cricbuzz.com/api/html/cricket-scorecard/${q}`;
+
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    res.json(data);
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+app.use('/getmatchsquads', async (req, res) => {
+  const { q } = req.query;
+  const url = `https://www.cricbuzz.com/api/html/match-squads/${q}`;
+
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    res.json(data);
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+app.use('/getmatchhighlights', async (req, res) => {
+  const { q } = req.query;
+  // const url = `https://www.cricbuzz.com/api/html/match-squads/${q}`;
+  const url = `https://www.cricbuzz.com/api/cricket-match/${q}/highlights/1`;
+
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    res.json(data);
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+app.use('/getmatchcommentary', async (req, res) => {
+  const { q } = req.query;
+  // const url = `https://www.cricbuzz.com/api/html/match-squads/${q}`;
+  const url = `https://www.cricbuzz.com/api/cricket-match/${q}/full-commentary/0`;
+
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    res.json(data);
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
 app.use('/getjobtitle', async (req, res) => {
   const { q } = req.query;
   const url = `https://autocomplete.indeed.com/api/v0/suggestions/what?country=IN&language=en&count=10&formatted=1&query=${q}`;
